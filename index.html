@@ -2,263 +2,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10101c">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Photo Gallery</title>
 
-  <title>My Photo Gallery</title>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+body {
+    margin: 0;
+    padding: 20px;
+    background: #10121c;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #10101c;
-      color: white;
-    }
+h1 {
+    margin: 15px 0 25px;
+}
 
-    header {
-      padding: 25px 15px;
-      text-align: center;
-      background: linear-gradient(135deg, #25254a, #11111d);
-    }
+.cover-container {
+    max-width: 600px;
+    margin: auto;
+}
 
-    header h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
+.cover {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 18px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px #000;
+}
 
-    header p {
-      color: #c4c4d8;
-      font-size: 14px;
-    }
+.cover-text {
+    margin-top: 12px;
+    color: #ddd;
+    font-size: 16px;
+}
 
-    .hero {
-      padding: 25px 15px;
-      text-align: center;
-    }
+#gallery {
+    display: none;
+    margin: 35px auto;
+    max-width: 1000px;
+}
 
-    .hero img {
-      width: 100%;
-      max-width: 850px;
-      height: 350px;
-      object-fit: cover;
-      border-radius: 18px;
-      cursor: pointer;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    }
+#gallery h2 {
+    margin-bottom: 20px;
+}
 
-    .hero h2 {
-      margin-top: 18px;
-      font-size: 23px;
-    }
+.photos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
 
-    .hero p {
-      color: #b8b8c8;
-      margin-top: 8px;
-    }
+.photos img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+}
 
-    .gallery-title {
-      text-align: center;
-      padding: 25px 10px 15px;
-    }
+#viewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
 
-    .gallery-title h2 {
-      font-size: 24px;
-    }
+#viewer img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+}
 
-    .gallery-title p {
-      color: #aaa;
-      margin-top: 8px;
-    }
+.close {
+    position: absolute;
+    top: 15px;
+    right: 22px;
+    font-size: 35px;
+    cursor: pointer;
+}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      padding: 15px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .photo-card {
-      overflow: hidden;
-      border-radius: 14px;
-      background: #202033;
-    }
-
-    .photo-card img {
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
-      display: block;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-
-    .photo-card img:hover {
-      transform: scale(1.05);
-    }
-
-    .video-section {
-      text-align: center;
-      padding: 35px 15px;
-      margin-top: 20px;
-      background: #191927;
-    }
-
-    .video-section h2 {
-      margin-bottom: 10px;
-    }
-
-    .video-section p {
-      color: #aaa;
-    }
-
-    .viewer {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.96);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 15px;
-    }
-
-    .viewer img {
-      max-width: 100%;
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 22px;
-      font-size: 40px;
-      cursor: pointer;
-      color: white;
-    }
-
-    footer {
-      text-align: center;
-      padding: 22px;
-      color: #aaa;
-      background: #0a0a12;
-      font-size: 14px;
-    }
-
-    @media (min-width: 700px) {
-      .gallery {
+@media (min-width: 700px) {
+    .photos {
         grid-template-columns: repeat(3, 1fr);
-      }
-
-      .hero img {
-        height: 450px;
-      }
     }
-  </style>
+
+    .photos img {
+        height: 230px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>📸 My Photo Gallery</h1>
-    <p>Beautiful Memories • Special Moments</p>
-  </header>
+<h1>My Photo & Video Gallery</h1>
 
-  <!-- COVER PHOTO -->
-  <section class="hero">
+<div class="cover-container">
     <img
-      src="images%20(3).jpeg"
-      alt="Cover Photo"
-      onclick="openGallery()"
+        class="cover"
+        src="images%20(3).jpeg"
+        alt="Cover Photo"
+        onclick="showGallery()"
     >
 
-    <h2>Welcome to My Gallery ❤️</h2>
-    <p>Click the cover photo to explore more memories</p>
-  </section>
-
-  <!-- PHOTO GALLERY -->
-  <section id="gallerySection">
-
-    <div class="gallery-title">
-      <h2>My Photos</h2>
-      <p>Every picture tells a story</p>
+    <div class="cover-text">
+        Click the cover photo to view all photos ❤️
     </div>
+</div>
 
-    <div class="gallery">
+<section id="gallery">
+    <h2>My Photos</h2>
 
-      <div class="photo-card">
-        <img src="images%20(3).jpeg"
-             alt="Photo 1"
-             onclick="openImage(this.src)">
-      </div>
-
-      <div class="photo-card">
-        <img src="images%20(4).jpeg"
-             alt="Photo 2"
-             onclick="openImage(this.src)">
-      </div>
-
-      <div class="photo-card">
-        <img src="images%20(5).jpeg"
-             alt="Photo 3"
-             onclick="openImage(this.src)">
-      </div>
-
-      <div class="photo-card">
-        <img src="images%20(6).jpeg"
-             alt="Photo 4"
-             onclick="openImage(this.src)">
-      </div>
-
-      <div class="photo-card">
-        <img src="images%20(7).jpeg"
-             alt="Photo 5"
-             onclick="openImage(this.src)">
-      </div>
-
+    <div class="photos">
+        <img src="images%20(3).jpeg" onclick="openImage(this.src)" alt="Photo 1">
+        <img src="images%20(4).jpeg" onclick="openImage(this.src)" alt="Photo 2">
+        <img src="images%20(5).jpeg" onclick="openImage(this.src)" alt="Photo 3">
+        <img src="images%20(6).jpeg" onclick="openImage(this.src)" alt="Photo 4">
+        <img src="images%20(7).jpeg" onclick="openImage(this.src)" alt="Photo 5">
     </div>
-  </section>
+</section>
 
-  <!-- VIDEO SECTION -->
-  <section class="video-section">
-    <h2>🎬 Video Gallery</h2>
-    <p>More memories coming soon!</p>
-  </section>
-
-  <!-- FULL SCREEN PHOTO -->
-  <div class="viewer" id="viewer" onclick="closeImage()">
+<div id="viewer" onclick="closeImage()">
     <span class="close">&times;</span>
-    <img id="largeImage" src="" alt="Full size photo">
-  </div>
+    <img id="fullImage" alt="Full-size photo">
+</div>
 
-  <footer>
-    <p>© 2026 My Photo Gallery | All Rights Reserved</p>
-  </footer>
+<script>
+function showGallery() {
+    const gallery = document.getElementById("gallery");
 
-  <script>
-    function openGallery() {
-      document.getElementById("gallerySection")
-        .scrollIntoView({ behavior: "smooth" });
-    }
+    gallery.style.display = "block";
 
-    function openImage(source) {
-      document.getElementById("largeImage").src = source;
-      document.getElementById("viewer").style.display = "flex";
-    }
+    gallery.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
 
-    function closeImage() {
-      document.getElementById("viewer").style.display = "none";
-    }
-  </script>
+function openImage(src) {
+    document.getElementById("fullImage").src = src;
+    document.getElementById("viewer").style.display = "flex";
+}
+
+function closeImage() {
+    document.getElementById("viewer").style.display = "none";
+}
+</script>
 
 </body>
 </html>
