@@ -7,7 +7,9 @@
   <title>My Photo & Video Gallery</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -22,9 +24,14 @@
       background: #222;
     }
 
-    h1 { margin: 0; font-size: 26px; }
+    h1 {
+      margin: 0;
+      font-size: 26px;
+    }
 
-    .cover { padding: 20px; }
+    .cover {
+      padding: 20px;
+    }
 
     .cover img {
       width: 100%;
@@ -59,7 +66,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.95);
+      background: rgba(0, 0, 0, 0.95);
       z-index: 10;
       align-items: center;
       justify-content: center;
@@ -96,16 +103,18 @@
     <p>Click the cover image to see more photos</p>
   </header>
 
+  <!-- COVER IMAGE -->
   <section class="cover">
     <img
-      src="Screenshot_20261103_122849.jpg/cover.jpeg"
+      src="Screenshot_20261103_122849.jpg/Screenshot_20261103_122849.jpg"
       alt="Cover photo"
       onclick="openGallery()"
     >
     <p>Tap the image to explore more photos ❤️</p>
   </section>
 
-  <section id="gallerySection" style="display:none;">
+  <!-- PHOTO GALLERY -->
+  <section id="gallerySection" style="display: none;">
     <h2>My Photo Gallery</h2>
 
     <div class="gallery">
@@ -117,11 +126,13 @@
     </div>
   </section>
 
+  <!-- VIDEO GALLERY -->
   <section class="video-section">
     <h2>Video Gallery</h2>
     <p>Videos will appear here when you add video files.</p>
   </section>
 
+  <!-- FULL SCREEN IMAGE -->
   <div class="viewer" id="viewer" onclick="closeImage()">
     <span class="close">&times;</span>
     <img id="largeImage" src="" alt="Full size photo">
